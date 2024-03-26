@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Essa anotation converte os objetos para o modelo relacional do BD
 @Entity
 @Table(name = "tb-user")
 public class User implements Serializable{
@@ -21,7 +22,9 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	//Essa anotation indica qual desses campos será a chave primária
 	@Id
+	//Essa anotation indica que a id é auto-incrementável
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
