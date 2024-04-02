@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,24 +16,25 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="tb_order")
-public class Order implements Serializable{
-	
+@Table(name = "tb_order")
+public class Order implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant moment;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant moment;
+
 	@ManyToOne
 	@JoinColumn(name = "client-id")
 	private User client;
 
-	
-	//Constructor using fields
+	// Constructor using fields
 	public Order() {
-		
+
 	}
 
 	public Order(Long id, Instant moment, User client) {
@@ -40,8 +44,7 @@ public class Order implements Serializable{
 		this.client = client;
 	}
 
-
-	//Generated Getters and Setters
+	// Generated Getters and Setters
 	public Long getId() {
 		return id;
 	}
@@ -66,8 +69,7 @@ public class Order implements Serializable{
 		this.client = client;
 	}
 
-	
-	//Generate hashCode and equals
+	// Generate hashCode and equals
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -85,5 +87,4 @@ public class Order implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	
 }
