@@ -1,20 +1,20 @@
 package com.educandoweb.course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 //Essa anotation converte os objetos para o modelo relacional do BD
 @Entity
-@Table(name = "tb-user")
+@Table(name = "tb_user")
 public class User implements Serializable{
 	
 	/**
@@ -31,6 +31,9 @@ public class User implements Serializable{
 	private String email;
 	private String phone;
 	private String password;
+	
+	@OneToMany(mappedBy = "client")
+	private List<Order> order = new ArrayList<>();
 	
 	//Constructor
 	public User() {
@@ -49,6 +52,10 @@ public class User implements Serializable{
 
 	//Generate getters and setters
 	
+	public List<Order> getOrder() {
+		return order;
+	}
+
 	public Long getId() {
 		return id;
 	}
